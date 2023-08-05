@@ -43,18 +43,37 @@ class MostPlayedGamesProducer:
                 flag = 1
             temp_count = game[-1]
             current_players, peek_today = temp_count.split(" ")
-            self.games.append([game[0], game[1], flag, current_players, peek_today])
-        return self.games
+            current_players = current_players.replace(',', '')
+            current_players = current_players.replace('"', '')
+            peek_today = peek_today.replace(',', '')
+            peek_today = peek_today.replace('"', '')
+            game[1] = game[1].replace(',', '_')
+            self.games.append([str(game[0]), game[1], flag, current_players, peek_today])
+            #game_test = [str(game[0]), str(game[1]), str(flag), str(current_players), str(peek_today)]
+            # print("game_test: ", game_test)
+            # for item in game_test:
+            #    message = ','.join(str(field) for field in item).encode('utf-8')
+            # game_data = message.decode('utf-8').split(',')
+            # game_data = str(game_data)
+            # if len(game_data.split(','))!= 5:
+            #         print("Error in message: ", game_data)
+            #         break
 
     def produce_to_kafka(self):
         producer = KafkaProducer(bootstrap_servers=self.kafka_bootstrap_servers)
+        i = 0
         for game in self.games:
             message = ','.join(str(field) for field in game).encode('utf-8')
+            #message = game.encode('utf-8')
             producer.send(self.kafka_topic, value=message)
+            #time.sleep(3)
+            print("Message sent to Kafka")
+        producer.send(self.kafka_topic, "END_OF_STREAM".encode('utf-8'))  # Send the end of stream message  
         producer.flush()
+        producer.close()
 
 if __name__ == "__main__":
     obj = MostPlayedGamesProducer()
     obj.get_data()
-    games = obj.get_games()
+    obj.get_games()
     obj.produce_to_kafka()
