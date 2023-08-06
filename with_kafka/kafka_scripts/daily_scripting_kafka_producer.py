@@ -49,19 +49,9 @@ class MostPlayedGamesProducer:
             peek_today = peek_today.replace('"', '')
             game[1] = game[1].replace(',', '_')
             self.games.append([str(game[0]), game[1], flag, current_players, peek_today])
-            #game_test = [str(game[0]), str(game[1]), str(flag), str(current_players), str(peek_today)]
-            # print("game_test: ", game_test)
-            # for item in game_test:
-            #    message = ','.join(str(field) for field in item).encode('utf-8')
-            # game_data = message.decode('utf-8').split(',')
-            # game_data = str(game_data)
-            # if len(game_data.split(','))!= 5:
-            #         print("Error in message: ", game_data)
-            #         break
 
     def produce_to_kafka(self):
         producer = KafkaProducer(bootstrap_servers=self.kafka_bootstrap_servers)
-        i = 0
         for game in self.games:
             message = ','.join(str(field) for field in game).encode('utf-8')
             #message = game.encode('utf-8')
