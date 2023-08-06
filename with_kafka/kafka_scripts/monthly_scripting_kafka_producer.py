@@ -16,7 +16,8 @@ class MonthlyScraping:
         self.news_url = "http://api.steampowered.com/ISteamNews/GetNewsForApp/v0002/?appid="
         self.kafka_broker = 'localhost:9092'
         self.kafka_topic = 'monthly_visitor_data'
-        self.producer = KafkaProducer(bootstrap_servers=self.kafka_broker, value_serializer=lambda x: json.dumps(x).encode('utf-8'))
+        self.producer = KafkaProducer(bootstrap_servers=self.kafka_broker, 
+                                      value_serializer=lambda x: json.dumps(x).encode('utf-8'))
 
     def get_monthly_visits(self):
         self.wd.get(self.monthly_visits_url)

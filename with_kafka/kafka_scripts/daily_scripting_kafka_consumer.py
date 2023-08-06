@@ -30,7 +30,6 @@ class MostPlayedGamesConsumer:
         return games
 
     def save_as_csv(self, games):
-        print(f"In Saving the data to csv")#Rank,Game Name,Free to Play,Current Players,Peek Today,Collection Date
         df = pd.DataFrame(games, columns=['Rank', 'Game Name', 'Free to Play', 'Current Players', 'Peek Today'])
         df['Collection Date'] = self.collection_date
         df.to_csv(f'../data/daily_data/most_played/{self.collection_date}_MostPlayed_Consumed.csv', index=False)

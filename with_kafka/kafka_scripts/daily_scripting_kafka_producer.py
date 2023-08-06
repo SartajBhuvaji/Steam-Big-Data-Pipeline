@@ -54,11 +54,9 @@ class MostPlayedGamesProducer:
         producer = KafkaProducer(bootstrap_servers=self.kafka_bootstrap_servers)
         for game in self.games:
             message = ','.join(str(field) for field in game).encode('utf-8')
-            #message = game.encode('utf-8')
             producer.send(self.kafka_topic, value=message)
-            #time.sleep(3)
             print("Message sent to Kafka")
-        producer.send(self.kafka_topic, "END_OF_STREAM".encode('utf-8'))  # Send the end of stream message  
+        producer.send(self.kafka_topic, "END_OF_STREAM".encode('utf-8')) 
         producer.flush()
         producer.close()
 
