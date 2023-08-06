@@ -7,7 +7,8 @@ def kafka_consumer():
     kafka_broker = 'localhost:9092'
     kafka_topic = 'monthly_visitor_data'
 
-    consumer = KafkaConsumer(kafka_topic, bootstrap_servers=kafka_broker, value_deserializer=lambda x: json.loads(x.decode('utf-8')))
+    consumer = KafkaConsumer(kafka_topic, bootstrap_servers=kafka_broker, 
+                             value_deserializer=lambda x: json.loads(x.decode('utf-8')))
 
     for message in consumer:
         data = message.value
