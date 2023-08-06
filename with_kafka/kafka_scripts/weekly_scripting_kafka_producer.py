@@ -1,7 +1,5 @@
-from selenium import webdriver
 from selenium.webdriver.common.by import By
 from WebDriverCreation import WebDriverCreation
-import pandas as pd
 import re
 import time
 import datetime
@@ -24,6 +22,8 @@ class WeeklyTopSellers:
         self.reviews_url = 'https://store.steampowered.com/appreviews/'
         self.positive_reviews=[]
         self.negative_reviews=[]
+        self.review_list=[]
+        self.news_data = None
         self.url = self._construct_url_with_last_to_last_tuesday_date()
         self.producer = KafkaProducer(bootstrap_servers='localhost:9092')
 
@@ -61,12 +61,9 @@ class WeeklyTopSellers:
         for game in game_str:
             pattern = r"[^a-zA-Z0-9\s]"
             flag = 0
-
             if "Free To Play" in game:
                 flag = 1
-
             self.games.append([game[0], re.sub(pattern, "", game[1]), flag])
-
         if len(self.games) != 100:
             print("ERROR: Did not get 100 games")
 
@@ -79,18 +76,6 @@ class WeeklyTopSellers:
         if len(self.games_appid) != 100:
             print("ERROR: Did not get 100 games url")  
 
-    # def send_top_sellers(self):
-    #     for game in self.games:
-    #         self.producer.send('weekly_top_sellers', json.dumps(game).encode('utf-8'))
-    #         print("Message sent to Kafka")
-
-    #     self.producer.send(self.kafka_topic, "END_OF_STREAM".encode('utf-8'))   
-    #     self.producer.flush()
-
-        # df = pd.DataFrame(self.games, columns=['Rank', 'Game Name', 'Free to Play'])
-        # df['App ID'] = self.games_appid
-        # df['Collection Date'] = self.collection_data
-        # df.to_csv(f'../data/weekly_data/top_sellers/{self.collection_data}_weekly_top_sellers.csv', index=False)
 
     def get_top_10_news(self):
         for app_id in self.games_appid[:10]:
@@ -100,14 +85,10 @@ class WeeklyTopSellers:
             data = self.wd.page_source
             soup = BeautifulSoup(data, 'html.parser')
             pre_tag = soup.find('pre')
-            json_data = pre_tag.text if pre_tag else None
-
-            if json_data:
-                with open(f'../data/weekly_data/news/{self.collection_data}_news_{app_id}.json', 'w', encoding='utf-8') as json_file:
-                    json_file.write(json.dumps(json.loads(json_data), indent=4)) 
-                print("Data saved successfully as JSON.")
-            else:
-                print("Failed to retrieve valid JSON data. Check the URL and API response.")
+            self.news_data = pre_tag.text if pre_tag else None
+            self.send_to_kafka('weekly_news', json.dumps(json.loads(self.news_data)))
+        return    
+            
 
     def get_reviews(self, app_id, params):
         self.response = requests.get(url=self.reviews_url+app_id, params=params).json()
@@ -135,42 +116,43 @@ class WeeklyTopSellers:
         reviews = reviews + self.response['reviews']
         return reviews 
 
+
     def get_top_10_games_reviews(self):
         for app_id in self.games_appid[:10]:
             self.positive_reviews = self.get_positive_reviews(app_id, 20)
-            review_list=[]
+           
             for item in self.positive_reviews:
-                review_list.append({'review': item['review'], 'voted_up': item['voted_up']})    
+                cleaned_text = re.sub(r'[^a-zA-Z0-9\s]', '', item['review'].strip())
+                self.review_list.append([app_id, cleaned_text, "pos"])   
             
             self.negative_reviews = self.get_negative_reviews(app_id, 20)
             for item in self.negative_reviews:
-                review_list.append({'review': item['review'], 'voted_up': item['voted_up']})    
-            
-            reviews_df = pd.DataFrame(review_list)
-            reviews_df.to_string(f'../data/weekly_data/reviews/{self.collection_data}_{app_id}.txt', index=False, encoding="utf-8")     
-        return reviews_df
+                cleaned_text = re.sub(r'[^a-zA-Z0-9\s]', '', item['review'].strip())
+                self.review_list.append([app_id, cleaned_text, "neg"])        
 
     def send_to_kafka(self, topic, message):
-        self.producer.send(topic, message.encode('utf-8'))
+        self.producer.send(topic, value = message.encode('utf-8'))
         self.producer.flush()
 
     def get_results(self):
         self.get_data()  
-        self.get_games()
-        self.get_games_appid()
-        #self.send_top_sellers()
-        #self.get_top_10_games_reviews()
-        #self.get_top_10_news()
 
-        # Send data to Kafka topics
+        self.get_games()
         self.send_to_kafka('weekly_top_sellers_games', json.dumps(self.games))
-      
-        #self.send_to_kafka('weekly_top_sellers_games', "END_OF_STREAM".encode('utf-8'))
         print("Message sent to Kafka")
+
+        self.get_games_appid()
         self.send_to_kafka('weekly_top_sellers_app_id', json.dumps(self.games_appid))
         print("Message sent to Kafka")
-        #self.send_to_kafka('weekly_reviews', json.dumps(self.positive_reviews + self.negative_reviews))
-        #self.send_to_kafka('weekly_news', json.dumps(self.news_data))
+
+        self.get_top_10_games_reviews()
+        self.send_to_kafka('weekly_reviews', json.dumps(self.review_list))
+
+        self.get_top_10_news()
+        print("Message sent to Kafka")
+
+        self.send_to_kafka('close_consumer', json.dumps("END_OF_STREAM"))
+        self.producer.close()
 
 if __name__ == "__main__":
     obj = WeeklyTopSellers()

@@ -35,6 +35,7 @@ class MonthlyScraping:
 
         self.producer.send(self.kafka_topic, value="END_OF_STREAM")
         self.producer.flush()
+        self.producer.close()
 
 if __name__ == '__main__':
     monthly_scraping = MonthlyScraping()
