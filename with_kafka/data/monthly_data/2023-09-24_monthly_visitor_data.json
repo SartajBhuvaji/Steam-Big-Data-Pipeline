@@ -6,42 +6,42 @@
         {
             "Country": 840,
             "CountryCode": "US",
-            "Value": 0.1445993739657143
-        },
-        {
-            "Country": 156,
-            "CountryCode": "CN",
-            "Value": 0.1078952714359303
+            "Value": 0.14576081357492068
         },
         {
             "Country": 643,
             "CountryCode": "RU",
-            "Value": 0.06880872975841613
+            "Value": 0.07707768908054195
+        },
+        {
+            "Country": 156,
+            "CountryCode": "CN",
+            "Value": 0.06636652829019946
         },
         {
             "Country": 392,
             "CountryCode": "JP",
-            "Value": 0.0504949501884737
+            "Value": 0.054823286228086354
         },
         {
             "Country": 792,
             "CountryCode": "TR",
-            "Value": 0.042922660827171194
+            "Value": 0.040520196056360785
         }
     ],
     "Title": "welcome to steam",
     "Engagments": {
-        "BounceRate": "0.48607075874857913",
-        "Month": "6",
+        "BounceRate": "0.48138174732732564",
+        "Month": "8",
         "Year": "2023",
-        "PagePerVisit": "4.539245279963454",
-        "Visits": "172451708.64032623",
-        "TimeOnSite": "202.83973499447066"
+        "PagePerVisit": "4.426160884504654",
+        "Visits": "168273664.85540068",
+        "TimeOnSite": "190.13336013714985"
     },
     "EstimatedMonthlyVisits": {
-        "2023-04-01": 172299056,
-        "2023-05-01": 165019977,
-        "2023-06-01": 172451708
+        "2023-06-01": 172451708,
+        "2023-07-01": 188136085,
+        "2023-08-01": 168273664
     },
     "GlobalRank": {
         "Rank": null
@@ -55,15 +55,19 @@
         "Rank": null,
         "Category": null
     },
+    "GlobalCategoryRank": {
+        "Rank": null,
+        "Category": null
+    },
     "IsSmall": false,
     "Policy": 0,
     "TrafficSources": {
-        "Social": 0.06221286220003415,
-        "Paid Referrals": 0.0040070853258729906,
-        "Mail": 0.02070590728941937,
-        "Referrals": 0.09180929101643757,
-        "Search": 0.45005046953609584,
-        "Direct": 0.3712143846321399
+        "Social": 0.06460781172767084,
+        "Paid Referrals": 0.0016597399304503874,
+        "Mail": 0.016175191632167206,
+        "Referrals": 0.09163391781301873,
+        "Search": 0.4531740415577455,
+        "Direct": 0.37274929733894735
     },
     "Category": "games/video_games_consoles_and_accessories",
     "LargeScreenshot": "https://site-images.similarcdn.com/image?url=store.steampowered.com&t=1&s=1&h=87caea07ce514d834950b6838ba57d183d039db37fc331ae9ef1165cb792d278",
@@ -1336,5 +1340,8 @@
                 "Domain": "steamcommunity.com"
             }
         ]
+    },
+    "Notification": {
+        "Content": null
     }
 }
