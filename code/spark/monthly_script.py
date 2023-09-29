@@ -94,8 +94,7 @@ class MonthlyScript:
                                         "Engagments.TimeOnSite")
 
         self.engagements_data = self.engagements_data.withColumn("FILE_DATE", lit(self.FILE_DATE))
-
-        self.estimated_monthly_visits = self.self.steam_traffic.select("EstimatedMonthlyVisits")
+        self.estimated_monthly_visits = self.steam_traffic.select("EstimatedMonthlyVisits")
         # Split the 'EstimatedMonthlyVisits' column into separate rows and columns
         self.estimated_monthly_visits = self.estimated_monthly_visits.select(
             explode("EstimatedMonthlyVisits").alias("Date", "Visits")
@@ -112,9 +111,9 @@ class MonthlyScript:
         self.traffic_sources = self.traffic_sources.withColumn("FILE_DATE", lit(self.FILE_DATE)) 
 
     def save_filtered_data(self):
-        engagements_path = r"../../saved_data/monthly_data/engagements_data"
-        traffic_sources_path = r"../../saved_data/monthly_data/traffic_sources"
-        estimated_monthly_visits_path = r"../../saved_data/monthly_data/estimated_monthly_visits"
+        engagements_path = r"../../cleaned_data/monthly_data/engagements_data"
+        traffic_sources_path = r"../../cleaned_data/monthly_data/traffic_sources"
+        estimated_monthly_visits_path = r"../../cleaned_data/monthly_data/estimated_monthly_visits"
 
         # Save the DataFrame as CSV
         self.engagements_data.write.format("csv").mode("overwrite").option("header", "true").save(engagements_path)

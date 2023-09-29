@@ -64,10 +64,10 @@ class WeeklyScript:
 
             #news
             self.WEEKLY_NEWS_PATH = self.WEEKLY_DATA_PATH + r'news/'
-            files = os.listdir(self.WEEKLY_NEWS_PATH)
-            dfs = []
+            weekly_news_files = os.listdir(self.WEEKLY_NEWS_PATH)
+            self.dfs = []
 
-            for file in files:
+            for file in weekly_news_files:
                 with open(self.WEEKLY_NEWS_PATH + file, 'r') as json_file:
                     json_data = json.load(json_file)
 
@@ -79,7 +79,7 @@ class WeeklyScript:
                             value = str(value)
                         df[column_name] = [value]
                     df['App ID'] = json_data['appnews']['appid']
-                    dfs.append(df)
+                    self.dfs.append(df)
                 
         except Exception as e:
             print("An error occurred while reading the CSV file:", e)
@@ -90,8 +90,8 @@ class WeeklyScript:
         self.most_daily_played = self.most_daily_played.filter(length(col("Review")) >= 2)
 
         #news
-        news_df = pd.concat(self.dfs, ignore_index=True)
-        self.columns_to_iterate = news_df.columns[:-1]
+        self.news_df = pd.concat(self.dfs, ignore_index=True)
+        self.columns_to_iterate = self.news_df.columns[:-1]
         
     def filter_data(self):
         #reviews
@@ -107,9 +107,9 @@ class WeeklyScript:
         self.counted_reviews = self.counted_reviews.withColumn("FILE_DATE", lit(self.FILE_DATE))
 
         #top_sellers
-        top_sellers_appids = top_sellers_appids.withColumn(
+        self.top_sellers_appids = self.top_sellers_appids.withColumn(
                                                 "Rank",(monotonically_increasing_id() + 1).cast("int"))
-        self.top_sellers = self.top_sellers_games.join(top_sellers_appids, on=["Rank"], how="inner")
+        self.top_sellers = self.top_sellers_games.join(self.top_sellers_appids, on=["Rank"], how="inner")
         self.top_sellers = self.top_sellers.withColumn("FILE_DATE", lit(self.FILE_DATE))    
 
         #news
@@ -136,11 +136,11 @@ class WeeklyScript:
                         
 
     def save_filtered_data(self):
-        neg_reviews_path = r"../saved_data/weekly_data/neg_reviews"
-        pos_reviews_path = r"../saved_data/weekly_data/pos_reviews"
-        counted_reviews_path = r"../saved_data/weekly_data/counted_reviews"
-        top_sellers_path = r"../saved_data/weekly_data/top_sellers"
-        news_spark_path = r"../saved_data/weekly_data/news_spark_df"
+        neg_reviews_path = r"../../cleaned_data/weekly_data/neg_reviews"
+        pos_reviews_path = r"../../cleaned_data/weekly_data/pos_reviews"
+        counted_reviews_path = r"../../cleaned_data/weekly_data/counted_reviews"
+        top_sellers_path = r"../../cleaned_data/weekly_data/top_sellers"
+        news_spark_path = r"../../cleaned_data/weekly_data/news_spark_df"
 
         # Save the DataFrame as CSV
         self.neg_reviews_df.write.format("csv").mode("overwrite").option("header", "true").save(neg_reviews_path)
@@ -154,6 +154,7 @@ class WeeklyScript:
 
     def runner(self):
         self.read_file()
+        self.clean_data()
         self.filter_data()
         self.save_filtered_data()
         self.stop_spark()

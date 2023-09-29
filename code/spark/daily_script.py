@@ -44,9 +44,9 @@ class DailyScript:
         self.not_free_to_play_sorted = not_free_to_play_df.orderBy("Peek Today")   
 
     def save_filtered_data(self):
-        path_top_20 = r"../../saved_data/daily_data/top_20"
-        path_top_free = r"../../saved_data/daily_data/top_free"
-        path_top_not_free = r"../../saved_data/daily_data/top_not_free"
+        path_top_20 = r"../../cleaned_data/daily_data/top_20"
+        path_top_free = r"../../cleaned_data/daily_data/top_free"
+        path_top_not_free = r"../../cleaned_data/daily_data/top_not_free"
 
         # Save the DataFrame as CSV
         self.most_daily_played.write.format("csv").mode("overwrite").option("header", "true").save(path_top_20)
