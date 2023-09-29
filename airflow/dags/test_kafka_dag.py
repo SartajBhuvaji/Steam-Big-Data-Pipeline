@@ -1,7 +1,7 @@
 #incorrect, need to design DAG such that task 2 starts when task 1 ends
 import sys
 from datetime import datetime, timedelta
-sys.path.append( '../../code/spark')
+sys.path.append( '../../code/kafka_scripts')
 
 from airflow import DAG
 from airflow.operators.python import PythonOperator
@@ -10,8 +10,9 @@ import daily_scripting_kafka_consumer, daily_scripting_kafka_producer
 
 default_args = {
     'owner': 'Sartaj',
-    'retry': 5,
-    'retry_delay': timedelta(minutes=5)
+    'depends_on_past': False,
+    'retry': 1,
+    'retry_delay': timedelta(minutes=1)
 }
 
 def run_consumer():
@@ -26,7 +27,7 @@ def run_producer():
 
 with DAG(
     default_args=default_args,
-    dag_id="dag_with_python_dependencies_v03",
+    dag_id="test_spark_dag",
     start_date=datetime(2021, 10, 12),
     schedule_interval='@daily'
 ) as dag:
