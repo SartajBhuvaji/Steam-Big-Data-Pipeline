@@ -60,11 +60,11 @@ class MostPlayedGamesProducer:
         producer.flush()
         producer.close()
 
-    def daily_scripting(self):
+    def runner(self):
         self.get_data()
         self.get_games()
         self.produce_to_kafka()    
 
 if __name__ == "__main__":
     obj = MostPlayedGamesProducer()
-    obj.daily_scripting()
+    obj.runner()

@@ -34,7 +34,10 @@ class MostPlayedGamesConsumer:
         df['Collection Date'] = self.collection_date
         df.to_csv(f'../data/daily_data/most_played/{self.collection_date}_MostPlayed_Consumed.csv', index=False)
 
+    def runner(self):
+        print("Starting the consumer.")
+        games = self.consume_from_kafka()
+        self.save_as_csv(games)
 if __name__ == "__main__":
     obj = MostPlayedGamesConsumer()
-    games = obj.consume_from_kafka()
-    obj.save_as_csv(games)
+    obj.runner()
