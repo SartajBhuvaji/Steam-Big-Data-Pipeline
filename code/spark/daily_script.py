@@ -62,6 +62,7 @@ class DailyScript:
         self.filter_data()
         self.save_filtered_data()
         self.stop_spark()
+        print("Daily Script Completed")
 
 if __name__ == "__main__":
     daily_script_obj = DailyScript()
