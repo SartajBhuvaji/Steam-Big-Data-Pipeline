@@ -58,6 +58,7 @@ class DailyScript:
         print("SAVING AT:", os.getcwd())
         print("Current Files in the directory:", os.listdir(os.getcwd()))
 
+        
     def stop_spark(self):
         self.spark.stop()
 

@@ -1,6 +1,13 @@
 from datetime import datetime, timedelta
 from airflow import DAG
-from airflow.operators.python import PythonOperator, TriggerDagRunOperator
+from airflow.operators.python import PythonOperator
+from airflow.operators.dagrun_operator import TriggerDagRunOperator
+
+
+#NEED TO ADD JAVA TO RUN SPARK
+
+# import sys
+# sys.path.append( '../../code/spark/')
 import daily_script
 
 default_args = {
@@ -32,6 +39,7 @@ with DAG(
     default_args=default_args,
     dag_id="subdag_1_2",
     schedule_interval=None,  # This sub-DAG is not scheduled independently
+    start_date=datetime(2021, 10, 12),  # Add start_date here
     catchup=False,
 ) as subdag_1_2:
     task1 = PythonOperator(
@@ -51,6 +59,7 @@ with DAG(
     default_args=default_args,
     dag_id="subdag_3_4",
     schedule_interval=None,  # This sub-DAG is not scheduled independently
+    start_date=datetime(2021, 10, 12),  # Add start_date here
     catchup=False,
 ) as subdag_3_4:
     task3 = PythonOperator(
@@ -76,14 +85,12 @@ with DAG(
     trigger_subdag_1_2 = TriggerDagRunOperator(
         task_id="trigger_subdag_1_2",
         trigger_dag_id="subdag_1_2",
-        provide_context=True,
         dag=dag,
     )
 
     trigger_subdag_3_4 = TriggerDagRunOperator(
         task_id="trigger_subdag_3_4",
         trigger_dag_id="subdag_3_4",
-        provide_context=True,
         dag=dag,
     )
 
