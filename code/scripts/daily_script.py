@@ -69,7 +69,7 @@ class DailyScript:
         self.stop_spark()
         print("Daily Script Completed")
 
-if __name__ == "__main__":
-    daily_script_obj = DailyScript()
-    daily_script_obj.runner()
+# if __name__ == "__main__":
+#     daily_script_obj = DailyScript()
+#     daily_script_obj.runner()
     # run this code aft u return 
