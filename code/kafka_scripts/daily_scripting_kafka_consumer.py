@@ -1,4 +1,5 @@
 from kafka import KafkaConsumer
+from s3sf import S3FileSystem
 import pandas as pd
 import time
 
@@ -32,7 +33,7 @@ class MostPlayedGamesConsumer:
     def save_as_csv(self, games):
         df = pd.DataFrame(games, columns=['Rank', 'Game Name', 'Free to Play', 'Current Players', 'Peek Today'])
         df['Collection Date'] = self.collection_date
-        df.to_csv(f'../data/daily_data/most_played/{self.collection_date}_MostPlayed_Consumed.csv', index=False)
+        df.to_csv(f'../../data/daily_data/most_played/{self.collection_date}_MostPlayed_Consumed.csv', index=False)
 
     def runner(self):
         print("Starting the consumer.")

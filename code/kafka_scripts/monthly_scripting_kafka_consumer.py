@@ -17,7 +17,7 @@ def kafka_consumer():
             break
 
         print("Received data from Kafka topic:")
-        with open(f'../data/monthly_data/{today.strftime("%Y-%m-%d")}_monthly_visitor_data.json', 'w') as json_file:
+        with open(f'../../data/monthly_data/{today.strftime("%Y-%m-%d")}_monthly_visitor_data.json', 'w') as json_file:
             json.dump(data, json_file, indent=4)
         print(f"Data saved as JSON: monthly_visitor_data_{message.timestamp}.json")
         consumer.close()

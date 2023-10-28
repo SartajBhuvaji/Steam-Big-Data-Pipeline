@@ -13,7 +13,6 @@ class MonthlyScraping:
         self.wd = webdriver.Chrome(options=self.options)
         self.today = date.today()
         self.monthly_visits_url = 'https://data.similarweb.com/api/v1/data?domain=store.steampowered.com'
-        self.news_url = "http://api.steampowered.com/ISteamNews/GetNewsForApp/v0002/?appid="
         self.kafka_broker = 'localhost:9092'
         self.kafka_topic = 'monthly_visitor_data'
         self.producer = KafkaProducer(bootstrap_servers=self.kafka_broker, 
