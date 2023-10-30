@@ -3,6 +3,12 @@ import pandas as pd
 from datetime import date
 import json
 collection_data = date.today()
+import os
+import dotenv
+dotenv.load_dotenv()
+
+AWS_PUBLIC_IP = os.getenv('AWS_PUBLIC_IP')
+PORT = os.getenv('PORT')
 
 consumer = KafkaConsumer(
     'weekly_top_sellers_games',
@@ -10,7 +16,7 @@ consumer = KafkaConsumer(
     'weekly_reviews',
     'weekly_news',
     'close_consumer',
-    bootstrap_servers='localhost:9092',
+    bootstrap_servers= f'{AWS_PUBLIC_IP}:{PORT}',
     group_id='weekly_data_group',
     auto_offset_reset='earliest',   
     enable_auto_commit=True,

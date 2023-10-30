@@ -2,9 +2,15 @@ from kafka import KafkaConsumer
 import json
 from datetime import date
 today = date.today()
+import dotenv
+import os
+dotenv.load_dotenv()
+
+AWS_PUBLIC_IP = os.getenv('AWS_PUBLIC_IP')
+PORT = os.getenv('PORT')
 
 def kafka_consumer():
-    kafka_broker = 'localhost:9092'
+    kafka_broker = f'{AWS_PUBLIC_IP}:{PORT}'
     kafka_topic = 'monthly_visitor_data'
 
     consumer = KafkaConsumer(kafka_topic, bootstrap_servers=kafka_broker, 

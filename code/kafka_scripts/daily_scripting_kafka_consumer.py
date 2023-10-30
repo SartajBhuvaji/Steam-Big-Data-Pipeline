@@ -1,11 +1,16 @@
 from kafka import KafkaConsumer
-from s3sf import S3FileSystem
 import pandas as pd
 import time
+import os
+import dotenv
+dotenv.load_dotenv()
+
+AWS_PUBLIC_IP = os.getenv('AWS_PUBLIC_IP')
+PORT = int(os.getenv('PORT'))
 
 class MostPlayedGamesConsumer:
     def __init__(self) -> None:
-        self.kafka_bootstrap_servers = 'localhost:9092'
+        self.kafka_bootstrap_servers = f'{AWS_PUBLIC_IP}:{PORT}'
         self.kafka_topic = 'most_played_games'
         self.collection_date = pd.to_datetime('today').strftime("%Y-%m-%d")
 
