@@ -56,7 +56,7 @@ class DailyScript:
         print("SAVING AT:", os.getcwd())
         self.not_free_to_play_sorted.write.format("csv").mode("overwrite").option("header", "true").save(path_top_not_free) 
         print("SAVING AT:", os.getcwd())
-        print("Current Files in the directory:", os.listdir(os.getcwd()))
+        #print("Current Files in the directory:", os.listdir(os.getcwd()))
 
     def stop_spark(self):
         self.spark.stop()
@@ -69,7 +69,7 @@ class DailyScript:
         self.stop_spark()
         print("Daily Script Completed")
 
-# if __name__ == "__main__":
-#     daily_script_obj = DailyScript()
-#     daily_script_obj.runner()
+if __name__ == "__main__":
+    daily_script_obj = DailyScript()
+    daily_script_obj.runner()
     # run this code aft u return 

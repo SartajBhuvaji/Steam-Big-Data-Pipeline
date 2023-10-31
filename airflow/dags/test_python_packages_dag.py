@@ -10,14 +10,11 @@ default_args = {
 }
 
 
-def get_selenium():
-    import selenium
-    print(f"Selenium detected in docker airflow with version: {selenium.__version__} ")
+def func1():
+    print("In func2")
 
-
-def get_pyspark():
-    import pyspark
-    print(f"Pyspark detected in docker airflow with version: {pyspark.__version__}")
+def func2():
+    print("In func2")
 
 
 with DAG(
@@ -28,12 +25,12 @@ with DAG(
 ) as dag:
     task1 = PythonOperator(
         task_id='get_sklearn',
-        python_callable=get_selenium
+        python_callable=func1
     )
     
     task2 = PythonOperator(
         task_id='get_matplotlib',
-        python_callable=get_pyspark
+        python_callable=func2
     )
 
     task1 >> task2

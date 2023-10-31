@@ -14,7 +14,6 @@ class MostPlayedGamesConsumer:
         self.kafka_topic = 'most_played_games'
         self.collection_date = pd.to_datetime('today').strftime("%Y-%m-%d")
 
-
     def consume_from_kafka(self):
         consumer = KafkaConsumer(
             self.kafka_topic,
@@ -44,6 +43,7 @@ class MostPlayedGamesConsumer:
         print("Starting the consumer.")
         games = self.consume_from_kafka()
         self.save_as_csv(games)
+        
 if __name__ == "__main__":
     obj = MostPlayedGamesConsumer()
     obj.runner()
