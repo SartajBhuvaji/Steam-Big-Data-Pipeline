@@ -12,6 +12,9 @@ from datetime import datetime, timedelta
 from airflow import DAG
 from airflow.operators.python import PythonOperator
 from airflow.operators.bash import BashOperator
+import os
+import dotenv
+dotenv.load_dotenv()
 
 from monthly_scripting_kafka_consumer import MonthlyScrapingConsumer
 from monthly_scripting_kafka_producer import MonthlyScrapingProducer
@@ -25,12 +28,12 @@ default_args = {
     'retry_delay': timedelta(minutes=1)
 }
 
-RAW_DATA_SOURCE = "s3://raw_data_source"
-RAW_DATA_DESTINATION = "s3://raw_data_destination"
+MONTHLY_RAW_DATA_SOURCE = os.getenv("MONTHLY_RAW_DATA_SOURCE")
+MONTHLY_RAW_DATA_DESTINATION = os.getenv("MONTHLY_RAW_DATA_DESTINATION")
 
-PROCESSED_DATA_SOURCE = "s3://processed_data_source"
-PROCESSED_DATA_DESTINATION = "s3://processed_data_destination"
-PROCESSED_DATA_BACKUP_DESTINATION = "s3://processed_data_backup_destination"
+MONTHLY_PROCESSED_DATA_SOURCE = os.getenv("MONTHLY_PROCESSED_DATA_SOURCE")
+MONTHLY_PROCESSED_DATA_DESTINATION = os.getenv("MONTHLY_PROCESSED_DATA_DESTINATION")
+MONTHLY_PROCESSED_DATA_BACKUP_DESTINATION = os.getenv("MONTHLY_PROCESSED_DATA_BACKUP_DESTINATION")
 
 def monthly_pipeline_start():
     print("Pipeline started at {}".format(datetime.now()))
@@ -77,7 +80,7 @@ with DAG(
 
     task3 = BashOperator(
         task_id='backup_raw_data',
-        bash_command=f's3_backup_script.sh {RAW_DATA_SOURCE} {RAW_DATA_DESTINATION}',
+        bash_command=f's3_backup_script.sh {MONTHLY_RAW_DATA_SOURCE} {MONTHLY_RAW_DATA_DESTINATION}',
     )
 
     task4 = PythonOperator(
@@ -87,12 +90,12 @@ with DAG(
 
     task5 = BashOperator(
         task_id='backup_processed_data',
-        bash_command=f's3_backup_script.sh {PROCESSED_DATA_SOURCE} {PROCESSED_DATA_BACKUP_DESTINATION}',
+        bash_command=f's3_backup_script.sh {MONTHLY_PROCESSED_DATA_SOURCE} {MONTHLY_PROCESSED_DATA_BACKUP_DESTINATION}',
     )
 
     task6 = BashOperator(
         task_id='export_cleaned_data',
-        bash_command=f'ec2_to_s3_load_script.sh {PROCESSED_DATA_SOURCE} {PROCESSED_DATA_DESTINATION}',
+        bash_command=f'ec2_to_s3_load_script.sh {MONTHLY_PROCESSED_DATA_SOURCE} {MONTHLY_PROCESSED_DATA_DESTINATION}',
     )
     
     task7 = PythonOperator(
@@ -101,7 +104,7 @@ with DAG(
     )
 
     task8 = BashOperator(
-         task_id='pipeline_housekeeping',
+        task_id='pipeline_housekeeping',
         bash_command=f'pipeline_housekeeping.sh path/to/localEC2/folder/',
     )
     # Pipeline
