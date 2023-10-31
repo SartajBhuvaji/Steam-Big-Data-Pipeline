@@ -14,7 +14,7 @@ dotenv.load_dotenv()
 AWS_PUBLIC_IP = os.getenv('AWS_PUBLIC_IP')
 PORT = int(os.getenv('PORT'))
 
-class WeeklyTopSellers:
+class WeeklyTopSellersProducer:
 
     def __init__(self):
         self.all_game_rows = None
@@ -160,7 +160,7 @@ class WeeklyTopSellers:
         self.send_to_kafka('close_consumer', json.dumps("END_OF_STREAM"))
         self.producer.close()
 
-if __name__ == "__main__":
-    obj = WeeklyTopSellers()
-    obj.get_results()
-    obj.wd.quit()
+# if __name__ == "__main__":
+#     obj = WeeklyTopSellersProducer()
+#     obj.get_results()
+#     obj.wd.quit()

@@ -10,7 +10,7 @@ dotenv.load_dotenv()
 AWS_PUBLIC_IP = os.getenv('AWS_PUBLIC_IP')
 PORT = int(os.getenv('PORT'))
 
-class MonthlyScraping:
+class MonthlyScrapingProducer:
     def __init__(self):
         self.options = webdriver.ChromeOptions()
         self.options.add_argument('--headless')
@@ -39,10 +39,13 @@ class MonthlyScraping:
         else:
             print("Failed to retrieve valid JSON data. Check the URL and API response.")
 
+
+    def runner(self):
+        self.get_monthly_visits()
         self.producer.send(self.kafka_topic, value="END_OF_STREAM")
         self.producer.flush()
         self.producer.close()
 
 if __name__ == '__main__':
-    monthly_scraping = MonthlyScraping()
-    monthly_scraping.get_monthly_visits()
+    monthly_scraping = MonthlyScrapingProducer()
+    monthly_scraping.runner()
