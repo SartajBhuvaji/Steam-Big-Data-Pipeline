@@ -53,9 +53,6 @@ def spark_data_processing_job():
     monthly_script_obj = MonthlyScript()
     monthly_script_obj.runner()
 
-def trigger_monthly_dashboard():
-    print("Dashboard triggered at {}".format(datetime.now()))
-
 with DAG(
     default_args=default_args,
     dag_id="monthly_dag_pipeline",
@@ -97,16 +94,10 @@ with DAG(
         task_id='export_cleaned_data',
         bash_command=f'ec2_to_s3_load_script.sh {MONTHLY_PROCESSED_DATA_SOURCE} {MONTHLY_PROCESSED_DATA_DESTINATION}',
     )
-    
-    task7 = PythonOperator(
-        task_id='trigger_monthly_dashboard',
-        python_callable=trigger_monthly_dashboard
-    )
 
-    task8 = BashOperator(
+    task7 = BashOperator(
         task_id='pipeline_housekeeping',
         bash_command=f'pipeline_housekeeping.sh path/to/localEC2/folder/',
     )
     # Pipeline
-    task0 >> [task1, task2] >> task3 >> task4 >> [task5, task6] >> task7 >> task8
-  
+    task0 >> [task1, task2] >> task3 >> task4 >> [task5, task6] >> task7 
