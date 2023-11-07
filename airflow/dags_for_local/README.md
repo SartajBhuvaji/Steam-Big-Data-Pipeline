@@ -16,5 +16,3 @@
 - Once you have Airflow setup, comment out the `if __name__ == "__main__":` part from each file
 - Launch Airflow
 - Go to `http://localhost:8080/` and run the DAGs
-
-
