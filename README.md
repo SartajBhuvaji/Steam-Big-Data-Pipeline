@@ -105,7 +105,16 @@ Check the awesome DOCKER-README.me file
 - Catch Up Dag
 ![af3](https://github.com/SartajBhuvaji/Steam-Big-Data-Pipeline/assets/31826483/db3a81f5-603a-4e12-af98-36e78f7b6285)
 
-
 ### AWS S3 Buckets
+- All S3 Buckets
+![aws_0](https://github.com/SartajBhuvaji/Steam-Big-Data-Pipeline/assets/31826483/273fa327-8089-4200-8321-0387cda54a8e)
+
+- Processed Data Bucket
+![aws1](https://github.com/SartajBhuvaji/Steam-Big-Data-Pipeline/assets/31826483/bee44442-a8a0-4939-abbb-fa5b65742469)
+
+- Raw Data Backup Bucket
+![aws2](https://github.com/SartajBhuvaji/Steam-Big-Data-Pipeline/assets/31826483/f7b00226-e8d0-4c8c-9466-373fb690a276)
+
+
 
 ### QuickSight Visualizations
