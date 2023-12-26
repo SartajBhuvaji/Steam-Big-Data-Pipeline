@@ -28,14 +28,15 @@ Every day, the curtain rises on the gaming stage. Behold the Most Played Games l
 Our Weekly Data Wonders unfold from the WEEKLY TOP SELLERS, showcasing the top 100 games in revenue. Armed with App IDs, we delve into game news for updates and bug fixes straight from the developers. Simultaneously, we tap into the community's heartbeat—user reviews from the app page, offering a valuable pulse on user sentiments.
 
 ### Monthly Data Marvels 🚀
-- Source: [Monthly Visits](https://data.similarweb.com/api/v1/data?domain=store.steampowered.com)
+- Source: 
+    - [Monthly Visits](https://data.similarweb.com/api/v1/data?domain=store.steampowered.com)
 - Purpose: Collects monthly data related to network traffic, page visits, and engagement metrics, enriching our understanding of Steam's audience.
 
 Powered by Steam's API, our Monthly Data Marvels unveil a backstage pass to Steam's audience spectacle. Network traffic source, page visits, page hops, and other engagement metrics paint a vibrant canvas, helping us decipher the diverse audience that flocks to Steam.
 
 * <i> Note: Although I wanted to collect more data to process, the other options are paid, but they provide great insights. If you want to have an intense collection of data, you can refer to this [link](https://data.similarweb.com/api/v1/data?domain=store.steampowered.com) </i>
 
-## PySpark and Airflow Data Symphony 🚀🔧
+## PySpark and Airflow Data Symphony 🦄
 I use  PySpark to process our data seamlessly. The magic doesn't stop there— Airflow joins the orchestra, orchestrating the entire data flow with its slick Directed Acyclic Graphs (DAGs). It's a symphony of efficiency and elegance, making data management a breeze.
 
 ### Local and Cloud Vibes ☁️🖥️
@@ -51,7 +52,7 @@ Once I have back-up the raw data, I use Apache Spark to process it. The code to 
 ### Airflow DAG 🧑🏻‍🔧
 Airflow DAGs are the choreographers of our data dance! 🕺💃
 
-These Directed Acyclic Graphs (DAGs) are like the master conductors, guiding the flow of our data tasks. They define the order and dependencies, ensuring each step pirouettes gracefully into the next. Whether it's orchestrating data backups, triggering PySpark scripts, or managing the entire data symphony, Airflow DAGs make it happen.
+These Directed Acyclic Graphs (DAGs)🕸️ are like the master conductors, guiding the flow of our data tasks. They define the order and dependencies, ensuring each step pirouettes gracefully into the next. Whether it's orchestrating data backups, triggering PySpark scripts, or managing the entire data symphony, Airflow DAGs make it happen.
 
 ### Back Up 🦺
 After the PySpark magic wraps up, the cleaned data finds its cozy spot in the 'cleaned_data' folder (for local runs) or gets whisked away to the AWS S3 Bucket 'steam-clean-storage'. But hey, we're all about that backup life! 🧼✨
@@ -73,7 +74,7 @@ These mighty DAGs are your safety nets, ready to swoop in and save the day. Trig
 ## Visualizations 👀
 Time to bring the data to life! 🚀📊
 
-Whether it's the local vibes with Tableau or the cloud magic with AWS QuickSight, our visualizations are the grand finale. And guess what? AWS is all automated! When the data universe detects something new in the S3 storage, these visualization wizards kick into action, turning raw data into insights you can feast your eyes on. 🎉👀
+Whether it's the local vibes with Tableau or the cloud magic with AWS QuickSight, our visualizations are the grand finale. And guess what? AWS is all automated! When the data universe detects something new in the S3 storage, these visualization wizards kick into action, turning raw data into insights you can feast your eyes on. 🎉
 
 ## Local Setup
 - Setup Kafka
@@ -83,9 +84,17 @@ Whether it's the local vibes with Tableau or the cloud magic with AWS QuickSight
 ### Local Setup Issues
 Setting up locally is an easy way, however you might face some issues. I use a Windows machine and I have used this video to set up Kafka. However Airflow does not work natively on Windows 🥲 The easiest work-around is using Docker 🐋. You can refer to the docker image here. But now you need to have Kafka and PySpark setup in your Docker too. You'd need to find an image that has : Kafka + PySpark + Airflow. This makes the docker container too heavy(16GB+ RAM) and would not run on my laptop. So you can implement the project in parts. Having Kafka run locally. This would help you get raw data. On you raw data, you can build a docker image with Airflow and PySpark, transfer the raw data and run the DAG's to acheive the cleaned data. Then you'd need to transfer the clean data back to your drive and use Tableau to visualize the results.😤 OOF. 
 
+### Setting Up Docker
+
+
 ### AWS to the rescue! 🤌🏻
 {Write AWS Setup here}
 
 
+## Screenshots
 
+### AWS S3 Buckets
 
+### DAGS
+
+### QuickSight Visualizations
