@@ -1,5 +1,5 @@
 # Setting Up Docker 🐳
-Let's setup Docker with Apache Airflow and PySpark.
+Let's set up Docker with Apache Airflow and PySpark.
 
 ## Steps 
 - Download Docker for Desktop from [Official Docker Website](https://www.docker.com/products/docker-desktop/)
@@ -7,7 +7,7 @@ Let's setup Docker with Apache Airflow and PySpark.
 - Download the custom `docker-compose.yaml` file from `docker/`
 - Setup `.env` file from `docker/`
 - Create folders: dags, logs, config, plugins, code. These folders are used by docker. 📁
-- Put you DAG .py code in `/dags`
+- Put your DAG .py code in [`/dags`](https://github.com/SartajBhuvaji/Steam-Big-Data-Pipeline/tree/main/docker/sample)
 - Navigate to your project that contains the .yaml file and run `docker-compose up`
 - Airflow should start at: `http://localhost:8080`
 - The username and password is set to: `airflow` 
