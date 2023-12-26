@@ -116,5 +116,5 @@ Check the awesome DOCKER-README.me file
 ![aws2](https://github.com/SartajBhuvaji/Steam-Big-Data-Pipeline/assets/31826483/f7b00226-e8d0-4c8c-9466-373fb690a276)
 
 
-
 ### QuickSight Visualizations
+![quicksight0](https://github.com/SartajBhuvaji/Steam-Big-Data-Pipeline/assets/31826483/c37edc16-34b9-4a7c-928c-de74be79a022)
