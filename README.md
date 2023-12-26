@@ -34,7 +34,7 @@ Our Weekly Data Wonders unfold from the WEEKLY TOP SELLERS, showcasing the top 1
 
 Powered by Steam's API, our Monthly Data Marvels unveil a backstage pass to Steam's audience spectacle. Network traffic sources, page visits, page hops, and other engagement metrics paint a vibrant canvas, helping us decipher the diverse audience that flocks to Steam.
 
-* <i> Note: Although I wanted to collect more data to process, the other options are paid, but they provide great insights. If you want to have an intense collection of data, you can refer to this [link](https://data.similarweb.com/api/v1/data?domain=store.steampowered.com) </i>
+* <i> Note: Although I wanted to collect more data to process, the other options are paid, but they provide great insights. If you want to have an intense collection of data, you can refer to this [link](https://www.similarweb.com/) </i>
 
 ## PySpark and Airflow Data Symphony 🦄
 I use  PySpark to process our data seamlessly. The magic doesn't stop there— Airflow joins the orchestra, orchestrating the entire data flow with its slick Directed Acyclic Graphs (DAGs). It's a symphony of efficiency and elegance, making data management a breeze.
@@ -42,12 +42,12 @@ I use  PySpark to process our data seamlessly. The magic doesn't stop there— A
 ### Local and Cloud Vibes ☁️🖥️
 Our project is versatile and ready to run on both- local machines and in the expansive AWS cloud. Let's dive into the execution intricacies.
 
-When running locally the data from Kafka Consumer is stored inside a data folder in the following structure. (Attach GitHub link here)
-If running on AWS, the data is stored in an S3 bucket named 'steam-raw-storage' 
+When running locally the data from Kafka Consumer is stored inside a data folder in the following [structure](https://github.com/SartajBhuvaji/Steam-Big-Data-Pipeline/tree/main/data). 
+If running on AWS, the data is stored in an S3 bucket named `steam-raw-storage` 
 
-Once raw data is stored, I also have a shell script that runs to create a backup of the raw data. Note: This would be triggered by Airflow later. The backup script creates a copy of this raw data and stores it locally or on an S3 bucket named 'steam-raw-store-backup'.
+Once raw data is stored, I also have a shell script that runs to create a backup of the raw data. Note: This would be triggered by Airflow later. The backup script creates a copy of this raw data and stores it locally or on an S3 bucket named `steam-raw-store-backup`.
 
-Once I have back up the raw data, I use Apache Spark to process it. The code to spark scripts can be found here.(Insert GitHub link to spark code) According to the data collected (daily/weekly/monthly), I then run the spark script that parses the data, cleans it, and stores it in an easy-to-use format. When using Airflow, this will be triggered after raw data is backed up.
+Once I have back up the raw data, I use Apache Spark to process it. The code to spark scripts can be found [here](https://github.com/SartajBhuvaji/Steam-Big-Data-Pipeline/tree/main/code/scripts) According to the data collected (daily/weekly/monthly), I then run the spark script that parses the data, cleans it, and stores it in an easy-to-use format. When using Airflow, this will be triggered after raw data is backed up.
 
 ### Airflow DAG 🧑🏻‍🔧
 Airflow DAGs are the choreographers of our data dance! 🕺💃
@@ -55,9 +55,9 @@ Airflow DAGs are the choreographers of our data dance! 🕺💃
 These Directed Acyclic Graphs (DAGs)🕸️ are like the master conductors, guiding the flow of our data tasks. They define the order and dependencies, ensuring each step pirouettes gracefully into the next. Whether it's orchestrating data backups, triggering PySpark scripts, or managing the entire data symphony, Airflow DAGs make it happen.
 
 ### Back Up 🦺
-After the PySpark magic wraps up, the cleaned data finds its cozy spot in the 'cleaned_data' folder (for local runs) or gets whisked away to the AWS S3 Bucket 'steam-clean-storage'. But hey, we're all about that backup life! 🧼✨
+After the PySpark magic wraps up, the cleaned data finds its cozy spot in the `cleaned_data` folder (for local runs) or gets whisked away to the AWS S3 Bucket 'steam-clean-storage'. But hey, we're all about that backup life! 🧼✨
 
-Cue the backup script—it ensures the cleaned data has a secure twin at 'cleaned_data_backup' or the 'steam-clean-storage-backup' S3 bucket. Because, let's face it, backups are the unsung heroes of data life! 🚀(Backups are important 😄) 
+Cue the backup script—it ensures the cleaned data has a secure twin at `cleaned_data_backup` or the `steam-clean-storage-backup` S3 bucket. Because, let's face it, backups are the unsung heroes of data life! 🚀(Backups are important 😄) 
 
 ### House Keeping♻️
 With data safely tucked into its backup haven, it's time for a bit of digital tidying! 🧹 
@@ -85,11 +85,10 @@ Whether it's the local vibes with Tableau or the cloud magic with AWS QuickSight
 Setting up locally is an easy way, however you might face some issues. I use a Windows machine and I have used this video to set up Kafka. However, Airflow does not work natively on Windows 🥲 The easiest workaround is using Docker 🐋. You can refer to the docker image here. But now you need to have Kafka and PySpark set up in your Docker too. You'd need to find an image that has: Kafka + PySpark + Airflow. This makes the docker container too heavy(16GB+ RAM) and would not run on my laptop. So you can implement the project in parts. Having Kafka run locally. This would help you get raw data. On your raw data, you can build a docker image with Airflow and PySpark, transfer the raw data, and run the DAGs to achieve the cleaned data. Then you'd need to transfer the clean data back to your drive and use Tableau to visualize the results.😤 OOF. 
 
 ### Setting Up Docker 🐳
-Check the awesome DOCKER-README.me file  
+Check the awesome [DOCKER-README.md](https://github.com/SartajBhuvaji/Steam-Big-Data-Pipeline/blob/main/DOCKER-README.md) file  
 
 ### AWS to the rescue! 🤌🏻
 {Write AWS Setup here}
-
 
 ## Screenshots
 
