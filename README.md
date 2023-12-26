@@ -1,12 +1,12 @@
 # Steam-Data-Engineering-Project
 
 ## Project Overview
-Welcome to the heart of real-time data engineering—our project dedicated to unraveling the gaming wonders of [Steam](https://store.steampowered.com/). As one of the paramount digital distribution platforms for PC gaming, Steam sets the stage for our data orchestration. Brace yourself for a journey powered by Kafka, Spark, Airflow, and AWS, where we would perform data Extraction, Transformation, and Loading (ETL).
+Welcome to the heart of real-time data engineering—our project dedicated to unraveling the gaming wonders of [Steam](https://store.steampowered.com/). As one of the paramount digital distribution platforms for PC gaming, Steam sets the stage for our data orchestration. Brace yourself for a journey powered by Kafka, Spark, Airflow, and AWS, where we would perform data `Extraction, Transformation, and Loading` (ETL).
 
 ## Diagram
 
 ## Kafka Spotlight 🌟
-Hey there, data enthusiast! Let's shine a light on Kafka, the backbone of our data collection. To use Kafka, I have set up a simple producer-consumer schema for each web page. The producer scrapes the web page or collects data through Steam's APIs. This data is consumed by a consumer who then stores the data accordingly.
+Hey there, data enthusiast! Let's shine a light on Kafka, the backbone of our data collection. To use Kafka, I have set up a simple <i>producer-consumer</i> schema for each web page. The producer scrapes the web page or collects data through Steam's APIs. This data is consumed by a consumer who then stores the data accordingly.
 
 ## The Pipeline Trio 🚀
 Three pipelines, three different cadences—daily, weekly, and monthly. This setup ensures a separation of concerns and a steady flow of fresh data. 
@@ -64,7 +64,7 @@ With data safely tucked into its backup haven, it's time for a bit of digital ti
 
 The pipeline housekeeping job steps in, gracefully clearing out the primary folders. But fear not, our data superheroes stay intact in the backup folders, ready to save the day when needed! 🦸‍♂️📦
 
-### What is something breaks? 🫗
+### What if something breaks? 🫗
 In my previous role, I managed a few pipelines and I know stuff breaks. Picture this: It's Friday evening and your PySpark script suddenly decides it wants a day off, maybe due to unexpected changes in the data source or a cosmic hiccup. It's a data world, after all! 🌌
 
 But fear not! Introducing the superheroes of recovery—the Catch-Up DAGs! 🦸‍♀️💨
@@ -82,32 +82,32 @@ Whether it's the local vibes with Tableau or the cloud magic with AWS QuickSight
 - Setup Airflow
 
 ### Local Setup Issues
-Setting up locally is an easy way, however you might face some issues. I use a Windows machine and I have used this video to set up Kafka. However, Airflow does not work natively on Windows 🥲 The easiest workaround is using Docker 🐋. You can refer to the docker image here. But now you need to have Kafka and PySpark set up in your Docker too. You'd need to find an image that has: Kafka + PySpark + Airflow. This makes the docker container too heavy(16GB+ RAM) and would not run on my laptop. So you can implement the project in parts. Having Kafka run locally. This would help you get raw data. On your raw data, you can build a docker image with Airflow and PySpark, transfer the raw data, and run the DAGs to achieve the cleaned data. Then you'd need to transfer the clean data back to your drive and use Tableau to visualize the results.😤 OOF. 
+Setting up locally is an easy way, however you might face some issues. I use a Windows machine and I have used this [video](https://www.youtube.com/watch?v=BwYFuhVhshI) to set up Kafka. However, Airflow does not work natively on Windows 🥲 The easiest workaround is using Docker 🐋. You can refer to the docker image [here](https://github.com/SartajBhuvaji/Steam-Big-Data-Pipeline/blob/main/docker/docker-compose.yaml). This docker .yaml file contains PySpark and Airflow along with some other python libraries. However, to run the complete project you'd need to find an image that has: Kafka + PySpark + Airflow. This makes the docker container too heavy(16GB+ RAM) and would not run on my laptop. So you can implement the project in parts. Having Kafka run locally. This would help you get raw data. On your raw data, you can build a docker image with Airflow and PySpark, transfer the raw data, and run the DAGs to achieve the cleaned data. Then you'd need to transfer the clean data back to your drive and use Tableau to visualize the results.😤 OOF. 
 
 ### Setting Up Docker 🐳
 Check the awesome [DOCKER-README.md](https://github.com/SartajBhuvaji/Steam-Big-Data-Pipeline/blob/main/DOCKER-README.md) file  
 
 ### AWS to the rescue! 🤌🏻
 #### EC2 Instance Configuration
-Launched an EC2 instance optimized for Kafka and Spark usage.
-Configured security groups to manage inbound/outbound traffic, ensuring Kafka and Spark functionality.
-Established an IAM role granting S3 access to the EC2 instance.
+- Launched an EC2 instance optimized for Kafka and Spark usage.
+- Configured security groups🔐 to manage inbound/outbound traffic, ensuring Kafka and Spark functionality.
+- Established an IAM role granting S3 access to the EC2 instance.
 #### Kafka Deployment on EC2
-Installed and set up Kafka on the EC2 instance.
-Configured producer-consumer schemas enabling smooth data flow within Kafka.
+- Installed and set up Kafka on the EC2 instance.
+- Configured producer-consumer schemas enabling smooth data flow within Kafka.
 #### S3 Bucket Creation
-Created dedicated S3 buckets: steam-raw-storage and steam-clean-storage.
-Implemented stringent bucket policies to ensure secure data storage.
+- Created dedicated S3 buckets🪣: `steam-project-raw`, `steam-project-processed-data`, `steam-project-raw-backup` and `steam-project-processed-data-backup`
+- Implemented stringent bucket policies to ensure secure data storage.
 #### Kafka Data Streaming to S3
-Developed scripts facilitating seamless data streaming from various Steam sources into Kafka topics.
-Integrated scripts to efficiently store data into the designated steam-raw-storage S3 bucket.
+- Developed scripts facilitating seamless data streaming from various Steam sources into Kafka topics.
+- Integrated scripts to efficiently store data into the designated `steam-project-raw-storage` S3 bucket.
 #### Apache Spark Configuration
-Installed and configured Apache Spark on the EC2 instance.
-Crafted Spark scripts adept at transforming and processing data according to daily, weekly, and monthly pipelines.
-Successfully loaded processed data into the steam-clean-storage S3 bucket.
+- Installed and configured Apache Spark on the EC2 instance.
+- Crafted Spark scripts adept at transforming and processing data according to daily, weekly, and monthly pipelines.
+- Successfully loaded processed data into the steam-clean-storage S3 bucket.
 #### S3 Triggers and QuickSight Integration
-Configured S3 event triggers to promptly detect and respond to new data arrivals.
-Integrated QuickSight with S3, enabling direct visualization of data stored in the steam-clean-storage bucket for real-time insights.
+- Configured S3 event triggers to promptly detect and respond to new data arrivals.
+- Integrated QuickSight with S3, enabling direct visualization of data stored in the steam-clean-storage bucket for real-time insights.
 
 ## Screenshots
 
