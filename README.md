@@ -84,8 +84,8 @@ Whether it's the local vibes with Tableau or the cloud magic with AWS QuickSight
 ### Local Setup Issues
 Setting up locally is an easy way, however you might face some issues. I use a Windows machine and I have used this video to set up Kafka. However Airflow does not work natively on Windows 🥲 The easiest work-around is using Docker 🐋. You can refer to the docker image here. But now you need to have Kafka and PySpark setup in your Docker too. You'd need to find an image that has : Kafka + PySpark + Airflow. This makes the docker container too heavy(16GB+ RAM) and would not run on my laptop. So you can implement the project in parts. Having Kafka run locally. This would help you get raw data. On you raw data, you can build a docker image with Airflow and PySpark, transfer the raw data and run the DAG's to acheive the cleaned data. Then you'd need to transfer the clean data back to your drive and use Tableau to visualize the results.😤 OOF. 
 
-### Setting Up Docker
-
+### Setting Up Docker 🐳
+Check the awesome DOCKER-README.me file  
 
 ### AWS to the rescue! 🤌🏻
 {Write AWS Setup here}

@@ -23,8 +23,9 @@ volumes:
 - ${AIRFLOW_PROJ_DIR:-.}/code:/opt/airflow/code
 ```
 - The above part of code, moves the files from local /dags, /logs, /config, /plugins, /code to their respective paths in docker container.
--  If you want to add additional Python libraries mention them after `_PIP_ADDITIONAL_REQUIREMENTS:` in the .yaml file.
+- If you want to add additional Python libraries mention them after `_PIP_ADDITIONAL_REQUIREMENTS:` in the .yaml file.
 - Check `docker/sample` for folder structure and boilerplate DAG code.
 
 ## Note
 - I do not own the code in the `docker-compose.yaml` file. However I have used it under Apache license and modified it for my purpose.
+- `/docker/sample/logs/` have been zipped
