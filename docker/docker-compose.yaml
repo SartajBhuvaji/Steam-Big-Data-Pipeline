@@ -1,4 +1,4 @@
-## Modified By: Sartaj
+#MODIFIED
 ## I do not own this file. This file is a modified version of the docker-compose file from the airflow documentation
 ## Slightly modified version of the docker-compose file from the airflow documentation
 ## https://airflow.apache.org/docs/apache-airflow/stable/start/docker.html
