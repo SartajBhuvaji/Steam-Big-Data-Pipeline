@@ -1,11 +1,4 @@
 # Steam-Data-Engineering-Project
-<div align="center">
-  <img src="https://img.shields.io/badge/Apache%20Kafka-000?style=for-the-badge&logo=apachekafka" alt="Apache Kafka" width="120" height="30">
-  <img src="https://img.shields.io/badge/Apache%20Spark-FDEE21?style=flat-square&logo=apachespark&logoColor=black" alt="Apache Spark" width="120" height="30">
-  <img src="https://img.shields.io/badge/Apache%20Airflow-017CEE?style=for-the-badge&logo=Apache%20Airflow&logoColor=white" alt="Apache Airflow" width="120" height="30">
-  <img src="https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white" alt="AWS" width="120" height="30">
-  <img src="https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white" alt="Docker" width="120" height="30">
-</div>
 
 ## Project Overview
 Welcome to the heart of real-time data engineering—our project dedicated to unraveling the gaming wonders of [Steam](https://store.steampowered.com/). As one of the paramount digital distribution platforms for PC gaming, Steam sets the stage for our data orchestration. Brace yourself for a journey powered by Kafka, Spark, Airflow, and AWS, where we would perform data Extraction, Transformation, and Loading (ETL).
@@ -121,6 +114,14 @@ Check the awesome [DOCKER-README.md](https://github.com/SartajBhuvaji/Steam-Big-
 - Raw Data Backup Bucket
 ![aws2](https://github.com/SartajBhuvaji/Steam-Big-Data-Pipeline/assets/31826483/f7b00226-e8d0-4c8c-9466-373fb690a276)
 
-
 ### QuickSight Visualizations
 ![quicksight0](https://github.com/SartajBhuvaji/Steam-Big-Data-Pipeline/assets/31826483/c37edc16-34b9-4a7c-928c-de74be79a022)
+
+## Badges
+<div align="center">
+  <img src="https://img.shields.io/badge/Apache%20Kafka-000?style=for-the-badge&logo=apachekafka" alt="Apache Kafka" width="120" height="30">
+  <img src="https://img.shields.io/badge/Apache%20Spark-FDEE21?style=flat-square&logo=apachespark&logoColor=black" alt="Apache Spark" width="120" height="30">
+  <img src="https://img.shields.io/badge/Apache%20Airflow-017CEE?style=for-the-badge&logo=Apache%20Airflow&logoColor=white" alt="Apache Airflow" width="120" height="30">
+  <img src="https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white" alt="AWS" width="120" height="30">
+  <img src="https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white" alt="Docker" width="120" height="30">
+</div>
