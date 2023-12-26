@@ -88,7 +88,26 @@ Setting up locally is an easy way, however you might face some issues. I use a W
 Check the awesome [DOCKER-README.md](https://github.com/SartajBhuvaji/Steam-Big-Data-Pipeline/blob/main/DOCKER-README.md) file  
 
 ### AWS to the rescue! 🤌🏻
-{Write AWS Setup here}
+#### EC2 Instance Configuration
+Launched an EC2 instance optimized for Kafka and Spark usage.
+Configured security groups to manage inbound/outbound traffic, ensuring Kafka and Spark functionality.
+Established an IAM role granting S3 access to the EC2 instance.
+#### Kafka Deployment on EC2
+Installed and set up Kafka on the EC2 instance.
+Configured producer-consumer schemas enabling smooth data flow within Kafka.
+#### S3 Bucket Creation
+Created dedicated S3 buckets: steam-raw-storage and steam-clean-storage.
+Implemented stringent bucket policies to ensure secure data storage.
+#### Kafka Data Streaming to S3
+Developed scripts facilitating seamless data streaming from various Steam sources into Kafka topics.
+Integrated scripts to efficiently store data into the designated steam-raw-storage S3 bucket.
+#### Apache Spark Configuration
+Installed and configured Apache Spark on the EC2 instance.
+Crafted Spark scripts adept at transforming and processing data according to daily, weekly, and monthly pipelines.
+Successfully loaded processed data into the steam-clean-storage S3 bucket.
+#### S3 Triggers and QuickSight Integration
+Configured S3 event triggers to promptly detect and respond to new data arrivals.
+Integrated QuickSight with S3, enabling direct visualization of data stored in the steam-clean-storage bucket for real-time insights.
 
 ## Screenshots
 
