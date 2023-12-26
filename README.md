@@ -93,8 +93,8 @@ Check the awesome DOCKER-README.me file
 
 ## Screenshots
 
-### AWS S3 Buckets
+### AirFlow DAGS
 
-### DAGS
+### AWS S3 Buckets
 
 ### QuickSight Visualizations
