@@ -94,15 +94,16 @@ Check the awesome DOCKER-README.me file
 ## Screenshots
 
 ### AirFlow DAGS
+- All DAGs
 ![af0](https://github.com/SartajBhuvaji/Steam-Big-Data-Pipeline/assets/31826483/d57fdf20-204c-4fe9-8665-27f7b2d2a79c)
 
+- Daily Dag
 ![af1](https://github.com/SartajBhuvaji/Steam-Big-Data-Pipeline/assets/31826483/898adb5b-2967-4c93-ad70-ea6b7bb332ee)
 
 ![af2](https://github.com/SartajBhuvaji/Steam-Big-Data-Pipeline/assets/31826483/03a99104-63cc-4c08-a1c7-1babdd8b45ab)
 
+- Catch Up Dag
 ![af3](https://github.com/SartajBhuvaji/Steam-Big-Data-Pipeline/assets/31826483/db3a81f5-603a-4e12-af98-36e78f7b6285)
-
-
 
 
 ### AWS S3 Buckets
