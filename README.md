@@ -1,12 +1,12 @@
 # Steam-Data-Engineering-Project
 
 ## Project Overview
-Welcome to the heart of real-time data engineering—our project dedicated to unraveling the gaming wonders of [Steam](https://store.steampowered.com/). As one of the paramount digital distribution platforms for PC gaming, Steam sets the stage for our data orchestration. Brace yourself for a journey powered by Kafka, Spark, Airflow, and AWS, where we would perform data `Extraction, Transformation, and Loading` (ETL).
+Welcome to the heart of real-time data engineering—our project dedicated to unraveling the gaming wonders of [Steam](https://store.steampowered.com/). As one of the paramount digital distribution platforms for PC gaming, Steam sets the stage for our data orchestration. Brace yourself for a journey powered by Kafka, Spark, Airflow, and AWS, where I would perform data `Extraction, Transformation, and Loading` (ETL).
 
 ## Diagram
 
 ## Kafka Spotlight 🌟
-Hey there, data enthusiast! Let's shine a light on Kafka, the backbone of our data collection. To use Kafka, I have set up a simple <i>producer-consumer</i> schema for each web page. The producer scrapes the web page or collects data through Steam's APIs. This data is consumed by a consumer who then stores the data accordingly.
+Hey there, data enthusiast! Let's shine a light on Kafka, the backbone of data collection. To use Kafka, I have set up a simple <i>producer-consumer</i> schema for each web page. The producer scrapes the web page or collects data through Steam's APIs. This data is consumed by a consumer who then stores the data accordingly.
 
 ## The Pipeline Trio 🚀
 Three pipelines, three different cadences—daily, weekly, and monthly. This setup ensures a separation of concerns and a steady flow of fresh data. 
@@ -25,39 +25,41 @@ Every day, the curtain rises on the gaming stage. Behold the Most Played Games l
     - [App Reviews](https://store.steampowered.com/appreviews/)
 - Purpose: Gathers weekly insights by aggregating data from top sellers, game news, and user reviews.    
 
-Our Weekly Data Wonders unfold from the WEEKLY TOP SELLERS, showcasing the top 100 games in revenue. Armed with App IDs, we delve into game news for updates and bug fixes straight from the developers. Simultaneously, we tap into the community's heartbeat—user reviews from the app page, offering a valuable pulse on user sentiments.
+Our Weekly Data Wonders unfold from the WEEKLY TOP SELLERS, showcasing the top 100 games in revenue. Armed with App IDs, it delves into game news for updates and bug fixes straight from the developers. Simultaneously, I also tap into the community's heartbeat—user reviews from the app page, offering a valuable pulse on user sentiments.
 
 ### Monthly Data Marvels 🚀
 - Source: 
     - [Monthly Visits](https://data.similarweb.com/api/v1/data?domain=store.steampowered.com)
 - Purpose: Collects monthly data related to network traffic, page visits, and engagement metrics, enriching our understanding of Steam's audience.
 
-Powered by Steam's API, our Monthly Data Marvels unveil a backstage pass to Steam's audience spectacle. Network traffic sources, page visits, page hops, and other engagement metrics paint a vibrant canvas, helping us decipher the diverse audience that flocks to Steam.
+Powered by Steam's API, the  Monthly Data Marvels unveil a backstage pass to Steam's audience spectacle. Network traffic sources, page visits, page hops, and other engagement metrics paint a vibrant canvas, helping us decipher the diverse audience that flocks to Steam.
+
 
 * <i> Note: Although I wanted to collect more data to process, the other options are paid, but they provide great insights. If you want to have an intense collection of data, you can refer to this [link](https://www.similarweb.com/) </i>
 
 ## PySpark and Airflow Data Symphony 🦄
-I use  PySpark to process our data seamlessly. The magic doesn't stop there— Airflow joins the orchestra, orchestrating the entire data flow with its slick Directed Acyclic Graphs (DAGs). It's a symphony of efficiency and elegance, making data management a breeze.
+I use PySpark to process the data seamlessly. The magic doesn't stop there— Airflow joins in, orchestrating the entire data flow with its slick Directed Acyclic Graphs (DAGs). 
 
 ### Local and Cloud Vibes ☁️🖥️
-Our project is versatile and ready to run on both- local machines and in the expansive AWS cloud. Let's dive into the execution intricacies.
+The project is versatile and ready to run on both- local machines and in the expansive AWS cloud. Let's dive into the execution intricacies.
 
 When running locally the data from Kafka Consumer is stored inside a data folder in the following [structure](https://github.com/SartajBhuvaji/Steam-Big-Data-Pipeline/tree/main/data). 
-If running on AWS, the data is stored in an S3 bucket named `steam-raw-storage` 
+If running on AWS, the data is stored in an S3 bucket named `steam-project-raw` 
 
-Once raw data is stored, I also have a shell script that runs to create a backup of the raw data. Note: This would be triggered by Airflow later. The backup script creates a copy of this raw data and stores it locally or on an S3 bucket named `steam-raw-store-backup`.
+Once raw data is stored, I also have a shell script that runs to create a backup of the raw data.
+Note: This would be triggered by Airflow later. The backup script creates a copy of this raw data and stores it locally or on an S3 bucket named `steam-projet-raw-backup`.
 
-Once I have back up the raw data, I use Apache Spark to process it. The code to spark scripts can be found [here](https://github.com/SartajBhuvaji/Steam-Big-Data-Pipeline/tree/main/code/scripts) According to the data collected (daily/weekly/monthly), I then run the spark script that parses the data, cleans it, and stores it in an easy-to-use format. When using Airflow, this will be triggered after raw data is backed up.
+Once I have backed up the raw data, I use PySpark to process it. The code to spark scripts can be found [here](https://github.com/SartajBhuvaji/Steam-Big-Data-Pipeline/tree/main/code/scripts) According to the data collected (daily/weekly/monthly), I then run the spark script that parses the data, cleans it, and stores it in an easy-to-use format. When using Airflow, this will be triggered after raw data is backed up.
 
-### Airflow DAG 🧑🏻‍🔧
+### Airflow Directed Acyclic Graphs (DAG) 🧑🏻‍🔧
 Airflow DAGs are the choreographers of our data dance! 🕺💃
 
 These Directed Acyclic Graphs (DAGs)🕸️ are like the master conductors, guiding the flow of our data tasks. They define the order and dependencies, ensuring each step pirouettes gracefully into the next. Whether it's orchestrating data backups, triggering PySpark scripts, or managing the entire data symphony, Airflow DAGs make it happen.
 
 ### Back Up 🦺
-After the PySpark magic wraps up, the cleaned data finds its cozy spot in the `cleaned_data` folder (for local runs) or gets whisked away to the AWS S3 Bucket 'steam-clean-storage'. But hey, we're all about that backup life! 🧼✨
+After the PySpark magic wraps up, the cleaned data finds its cozy spot in the `steam-project-processed-data` folder (for local runs) or gets whisked away to the AWS S3 Bucket 'steam-clean-storage'. But hey, we're all about that backup life! 🧼✨
 
-Cue the backup script—it ensures the cleaned data has a secure twin at `cleaned_data_backup` or the `steam-clean-storage-backup` S3 bucket. Because, let's face it, backups are the unsung heroes of data life! 🚀(Backups are important 😄) 
+Cue the backup script—it ensures the cleaned data has a secure twin at the `steam-project-processed-data-backup` or the `steam-peojecr-raw-backup` S3 bucket. Because, let's face it, backups are the unsung heroes of data life! 🚀(Backups are important 😄) 
 
 ### House Keeping♻️
 With data safely tucked into its backup haven, it's time for a bit of digital tidying! 🧹 
